@@ -1,7 +1,7 @@
 Package: bmem
 Type: Package
 Title: Mediation analysis with missing data using bootstrap
-Version: 1.2.1
+Version: 1.2.2
 Date: 2011-01-04
 Author: Zhiyong Zhang and Lijuan Wang
 Maintainer: Zhiyong Zhang <zhiyongzhang@nd.edu>
@@ -11,6 +11,6 @@ License: GPL-2
 LazyLoad: yes
 URL: http://rpackages.psychstat.org
 ZipData: no
-Packaged: 2011-11-07 16:22:42 UTC; zzhang4
+Packaged: 2011-11-08 16:50:47 UTC; zzhang4
 Repository: CRAN
-Date/Publication: 2011-11-07 17:05:43
+Date/Publication: 2011-11-08 17:35:05

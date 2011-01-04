@@ -1,6 +1,6 @@
-38afdfb65b3692ed3b14c2249d39c8df *DESCRIPTION
-f0441af280a4622a6481814f9bfc635c *NAMESPACE
-7399c2fa7ac7eb81fcdf8427be83aaef *R/bmem.R
+7415ba195716d2da2472912108f8b5c0 *DESCRIPTION
+f0f46cc90862a15a4683a0377cce6dcc *NAMESPACE
+3bb94ffe8a302f409369c16c055becd9 *R/bmem.R
 775af17ecd7727abb5714ecfab612f6d *man/bmem-package.Rd
 21fe7896fd9b7e2a96851badb5bb11bd *man/bmem.Rd
 27bebfb78f0b6f990cc108be6a38e0e6 *man/bmem.bs.Rd
@@ -10,6 +10,7 @@ b5a90eb0173c68c085c8ba4ae5ba0472 *man/bmem.ci.bc1.Rd
 2b3fbbfb65622f1ee2094b2a7b49c23a *man/bmem.ci.bca1.Rd
 48dca4b1ceca802964709d8682b7d28a *man/bmem.ci.norm.Rd
 cf75f86853f4783c89f6304d24649c1c *man/bmem.ci.p.Rd
+76c4ba1a5e875978ae6a381dbf5174ee *man/bmem.cov.Rd
 49c12e9318170185d60ac9e104ab2b86 *man/bmem.em.Rd
 e33a95e206823d33046f7fb094e6c9b2 *man/bmem.em.boot.Rd
 bafa9d69bbbc76b1938bcec18e97de9b *man/bmem.em.cov.Rd
