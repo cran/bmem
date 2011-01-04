@@ -1,8 +1,11 @@
-bbc7be1b8400795b61a318f359ef11ef *DESCRIPTION
+9e4c9a741e4c688865b5ef9bb618d0ad *DESCRIPTION
 177aad022c2627b37f5c82657cbaefd3 *NAMESPACE
-b3dc0a62c348baf985263af56276d29e *R/bmem.R
+2aeebeef2ec7797ef82315bb904dad5a *R/bmem.R
+112ec62475898bdef113318a8ab3696d *R/power.R
+2c8a9f4bb11d8e7869dd3f758459619a *inst/doc/MediationAnalysis.pdf
+026ad47a7096a134c939d47d7b56963e *inst/doc/PowerAnalysis.pdf
 59ffee3cf4045bf0e110d06a8af7f776 *man/bmem-package.Rd
-e8d3c76ea4f79ebedbd3f1175d430a77 *man/bmem.Rd
+c4d0ae93f87afa01a8f73e9b09e9fd3a *man/bmem.Rd
 29b925b8de7ca7a6010e36c83b40a038 *man/bmem.bs.Rd
 71cca359103b3590de8231aaae2f4a72 *man/bmem.ci.bc.Rd
 c12ee338088980faab07332775a0e14a *man/bmem.ci.bc1.Rd
@@ -39,8 +42,8 @@ f9e6c60a390cbaa7cfbf31dc363b45ff *man/bmem.sobel.ind.Rd
 8de2de7ed5c61bfb42dea5e7f53c2e98 *man/bmem.v.Rd
 fa94b853445d9814d96d4ab2aaa77d08 *man/plot.bmem.Rd
 de74c012e3b0835c77b8e3d8b2ef1b71 *man/popPar.Rd
-bcccfe555209999f4e6e87e3b86f562d *man/power.basic.Rd
-e1c1c338ec58e1067b5b37d4c536ecc6 *man/power.boot.Rd
-c92aa3ad8c5c234fe4ba432819136a72 *man/power.curve.Rd
+ba49155e9d8abe2e02f99d262b41a8a9 *man/power.basic.Rd
+8b9f441c96cf2a9aa3d24c86d9366d3b *man/power.boot.Rd
+d068803fa8f87b59872ccab83320cae6 *man/power.curve.Rd
 c23691918ba76c9d7f2337f5c3c0dfdb *man/summary.bmem.Rd
 6e8973c2d269535ab4347de67077b0a9 *man/summary.power.Rd

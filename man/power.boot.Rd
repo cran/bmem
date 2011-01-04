@@ -9,9 +9,10 @@ Different from \code{\link{power.basic}}, this function conduct power analysis b
 }
 \usage{
 power.boot(model, indirect = NULL, nobs, nrep = 1000, nboot = 1000, 
-alpha = 0.95, skewness = NULL, kurtosis = NULL, ovnames = NULL, 
+alpha = 0.95, skewness = NULL, kurtosis = NULL, ovnames = NULL,  
+ci='default', boot.type='default', 
 se = "default", estimator = "default", parallel = "no", 
-ncore = Sys.getenv("NUMBER_OF_PROCESSORS"), cl = NULL, ...)
+ncore = 1,  ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -65,9 +66,8 @@ Parallel methods, snow or multicore, can be used here.
   \item{ncore}{
 Number of cores to be used in parallel. By defautl, the maximum number of cores are used.
 }
-  \item{cl}{
-An optional parallel or snow cluster for use if parallel = "snow". If not supplied, a cluster on the local machine is created.
-}
+\item{ci}{Type of bootstrap confidence intervals. By default, the percentile one is used. To get the bias-corrected one, use ci='BC'}
+\item{boot.type}{Type of bootstrap method. By default, the nonparametric one is used. Changing it to "BS" to use the Bollen-Stine method.}
   \item{\dots}{
 Other named arguments for lavaan can be passed here.
 }
@@ -79,4 +79,23 @@ Other named arguments for lavaan can be passed here.
 \item{pop.value}{Population parameter values}
 \item{results}{A list to give all intermediate results}
 \item{data}{The last data set generated for checking purpose}
+}
+
+\examples{
+\dontrun{
+ex1model<-'
+math ~ c*ME+start(0)*ME + b*HE+start(0.39)*HE
+HE ~ a*ME+start(0.39)*ME
+'
+
+indirect<-'ab:=a*b'
+
+N<-50
+
+system.time(boot.non.normal<-power.boot(ex1model, indirect, N, 
+ nrep=2000, nboot=10000, parallel='multicore', skewness=c(-.3, -.7, 1.3), 
+ kurtosis=c(1.5, 0, 5), ovnames=c('ME', 'HE', 'math'), ncore=8, ci='percent', 
+ boot.type='simple'))
+summary(boot.non.normal)
+}
 }

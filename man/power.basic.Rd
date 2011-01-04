@@ -10,8 +10,7 @@ Different from \code{\link{power.boot}}, this function conduct power analysis ba
 \usage{
 power.basic(model, indirect = NULL, nobs, nrep = 1000, alpha = 0.95, 
 skewness = NULL, kurtosis = NULL, ovnames = NULL, se = "default", 
-estimator = "default", parallel = "no", ncore = Sys.getenv("NUMBER_OF_PROCESSORS"), 
-cl = NULL, ...)
+estimator = "default", parallel = "no", ncore = 1,  ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -64,9 +63,6 @@ Parallel methods, snow or multicore, can be used here.
   \item{ncore}{
 Number of cores to be used in parallel. By defautl, the maximum number of cores are used.
 }
-  \item{cl}{
-An optional parallel or snow cluster for use if parallel = "snow". If not supplied, a cluster on the local machine is created.
-}
   \item{\dots}{
 Other named arguments for lavaan can be passed here.
 }
@@ -78,4 +74,24 @@ Other named arguments for lavaan can be passed here.
 \item{pop.value}{Population parameter values}
 \item{results}{A list to give all intermediate results}
 \item{data}{The last data set generated for checking purpose}
+}
+
+\examples{
+\dontrun{
+ex1model<-'
+math ~ c*ME+start(0)*ME + b*HE+start(0.39)*HE
+HE ~ a*ME+start(0.39)*ME
+'
+
+indirect<-'ab:=a*b'
+
+N<-50
+
+system.time(non.normal<-power.basic(ex1model, indirect, N, 
+ nrep=2000,parallel='multicore', skewness=c(-.3, -.7, 1.3), 
+ kurtosis=c(1.5, 0, 5), ovnames=c('ME', 'HE', 'math'), ncore=8))
+ 
+summary(non.normal)
+
+}
 }

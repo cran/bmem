@@ -9,9 +9,10 @@ Generate a power curve either based on Sobel test or bootstrap
 }
 \usage{
 power.curve(model, indirect=NULL, nobs=100, type='basic', nrep=1000, 
-nboot=1000, alpha=.95, skewness=NULL, kurtosis=NULL, ovnames=NULL, 
+nboot=1000, alpha=.95, skewness=NULL, kurtosis=NULL, ovnames=NULL,  
+ci='default', boot.type='default', 
 se="default", estimator="default", parallel="no", 
-ncore=Sys.getenv('NUMBER_OF_PROCESSORS'), cl=NULL, ...)
+ncore=1, interactive=TRUE, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -64,11 +65,11 @@ Estimation methods to be used here.
 Parallel methods, snow or multicore, can be used here. 
 }
   \item{ncore}{
-Number of cores to be used in parallel. By defautl, the maximum number of cores are used.
+Number of cores to be used in parallel. By default, the maximum number of cores are used.
 }
-  \item{cl}{
-An optional parallel or snow cluster for use if parallel = "snow". If not supplied, a cluster on the local machine is created.
-}
+\item{ci}{Type of bootstrap confidence intervals. By default, the percentile one is used. To get the bias-corrected one, use ci='BC'}
+\item{boot.type}{Type of bootstrap method. By default, the nonparametric one is used. Changing it to "BS" to use the Bollen-Stine method.}
+\item{interactive}{Whether to get the figure interactively.}
   \item{\dots}{
 Other named arguments for lavaan can be passed here.
 }
@@ -80,4 +81,32 @@ Other named arguments for lavaan can be passed here.
 \item{pop.value}{Population parameter values}
 \item{results}{A list to give all intermediate results}
 \item{data}{The last data set generated for checking purpose}
+}
+
+\examples{
+\dontrun{
+ex2model<-'
+ ept ~ start(.4)*hvltt + b*hvltt + start(0)*age + start(0)*edu + start(2)*R
+ hvltt ~ start(-.35)*age + a*age + c*edu + start(.5)*edu
+ R ~ start(-.06)*age + start(.2)*edu
+ R =~ 1*ws + start(.8)*ls + start(.5)*lt
+ age ~~ start(30)*age
+ edu ~~ start(8)*edu
+ age ~~ start(-2.8)*edu
+ hvltt ~~ start(23)*hvltt
+ R ~~ start(14)*R
+ ws ~~ start(3)*ws
+ ls ~~ start(3)*ls
+ lt ~~ start(3)*lt
+ ept ~~ start(3)*ept 
+'
+
+indirect<-'ind1 := a*b + c*b'
+
+nobs <- seq(100, 2000, by=200)
+
+power.curve(model=ex2model, indirect=indirect, nobs=nobs, 
+type='boot', parallel='multicore', ncore=60, ci='percent', 
+boot.type='simple', interactive=F)
+}
 }
