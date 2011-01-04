@@ -1,8 +1,8 @@
-7415ba195716d2da2472912108f8b5c0 *DESCRIPTION
-f0f46cc90862a15a4683a0377cce6dcc *NAMESPACE
-3bb94ffe8a302f409369c16c055becd9 *R/bmem.R
+64f79f34352fe2faab809decf0966407 *DESCRIPTION
+4375aef1f57e1b31a5e91f803bf18746 *NAMESPACE
+4e2e37d2fa5fcc3bd4f7dcbafce03eda *R/bmem.R
 775af17ecd7727abb5714ecfab612f6d *man/bmem-package.Rd
-21fe7896fd9b7e2a96851badb5bb11bd *man/bmem.Rd
+3dfff0e7b0bec75e05fe29ca1206e3a4 *man/bmem.Rd
 27bebfb78f0b6f990cc108be6a38e0e6 *man/bmem.bs.Rd
 e92a277fddc06837aa077c6c4da75a5a *man/bmem.ci.bc.Rd
 b5a90eb0173c68c085c8ba4ae5ba0472 *man/bmem.ci.bc1.Rd

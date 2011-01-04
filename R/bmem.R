@@ -1,4 +1,14 @@
-##
+# Package: bmem
+# Type: Package
+# Title: Mediation analysis with missing data using bootstrap
+# Version: 1.3
+# Date: 2011-01-04
+# Author: Zhiyong Zhang and Lijuan Wang
+# Maintainer: Zhiyong Zhang <zhiyongzhang@nd.edu>
+# Depends: R (>= 1.7), sem, Amelia, MASS
+# Description: Four methods for mediation analysis with missing data: Listwise deletion, Pairwise deletion, Multiple imputation, and Two Stage Maximum Likelihood algorithm. For MI and TS-ML, auxiliary variables can be included. Bootstrap confidence intervals for mediation effects are obtained. The robust method is also implemented for TS-ML.
+
+
 bmem.moments<-function(x, type=0){
 	#0: listwise deletion
 	#1: pairwise deletion
@@ -576,9 +586,11 @@ bmem.list.jack<-function(x, ram, indirect, moment=FALSE, ...){
 	jack.fit<-NULL
 	for (i in 1:n){
 		x.jack<-x[nseq[-i],]
-		jack.temp<-bmem.list(x.jack, ram, indirect, moment, ...)
-		jack.est<-rbind(jack.est, jack.temp$est)
-		jack.fit<-rbind(jack.fit, jack.temp$model.fit)
+		jack.temp<-try(bmem.list(x.jack, ram, indirect, moment, ...))
+		if (class(jack.temp)!="try-error"){
+			jack.est<-rbind(jack.est, jack.temp$est)
+			jack.fit<-rbind(jack.fit, jack.temp$model.fit)
+			}
 		}
 	list(jack.est=jack.est, jack.fit=jack.fit)
 	}
@@ -590,9 +602,11 @@ bmem.pair.jack<-function(x, ram, indirect, moment=FALSE, ...){
 	jack.fit<-NULL
 	for (i in 1:n){
 		x.jack<-x[nseq[-i],]
-		jack.temp<-bmem.pair(x.jack, ram, indirect, moment, ...)
-		jack.est<-rbind(jack.est, jack.temp$est)
-		jack.fit<-rbind(jack.fit, jack.temp$model.fit)
+		jack.temp<-try(bmem.pair(x.jack, ram, indirect, moment, ...))
+		if (class(jack.temp)!="try-error"){
+			jack.est<-rbind(jack.est, jack.temp$est)
+			jack.fit<-rbind(jack.fit, jack.temp$model.fit)
+			}
 		}
 	list(jack.est=jack.est, jack.fit=jack.fit)
 	}
@@ -605,9 +619,11 @@ bmem.mi.jack<-function(x, ram, indirect, v, m=10, moment=FALSE, ...){
 	jack.fit<-NULL
 	for (i in 1:n){
 		x.jack<-x[nseq[-i],]
-		jack.temp<-bmem.mi(x.jack, ram, indirect, v, m, moment, ...)
-		jack.est<-rbind(jack.est, jack.temp$est)
-		jack.fit<-rbind(jack.fit, jack.temp$model.fit)
+		jack.temp<-try(bmem.mi(x.jack, ram, indirect, v, m, moment, ...))
+		if (class(jack.temp)!="try-error"){
+			jack.est<-rbind(jack.est, jack.temp$est)
+			jack.fit<-rbind(jack.fit, jack.temp$model.fit)
+			}
 		}
 	list(jack.est=jack.est, jack.fit=jack.fit)
 	}
@@ -620,9 +636,11 @@ bmem.em.jack<-function(x, ram, indirect, v, robust=FALSE, varphi=.1, st='i', mom
 	jack.fit<-NULL
 	for (i in 1:n){
 		x.jack<-x[nseq[-i],]
-		jack.temp<-bmem.em(x.jack, ram, indirect, v, robust, varphi, st, moment, max_it, ...)
-		jack.est<-rbind(jack.est, jack.temp$est)
-		jack.fit<-rbind(jack.fit, jack.temp$model.fit)
+		jack.temp<-try(bmem.em(x.jack, ram, indirect, v, robust, varphi, st, moment, max_it, ...))
+		if (class(jack.temp)!="try-error"){
+			jack.est<-rbind(jack.est, jack.temp$est)
+			jack.fit<-rbind(jack.fit, jack.temp$model.fit)
+			}
 		}
 	list(jack.est=jack.est, jack.fit=jack.fit)
 	}
@@ -636,9 +654,11 @@ bmem.list.boot<-function(x, ram, indirect, boot=1000, moment=FALSE, ...){
 	boot.fit<-NULL
 	for (i in 1:boot){
 		x.boot<-x[sample(n,n, replace=TRUE),]
-		modelb<-bmem.list(x.boot, ram, indirect, moment, ...)
-		boot.est<-rbind(boot.est, modelb$est)
-		boot.fit<-rbind(boot.fit, modelb$model.fit)
+		modelb<-try(bmem.list(x.boot, ram, indirect, moment, ...))
+		if (class(modelb)!="try-error"){
+			boot.est<-rbind(boot.est, modelb$est)
+			boot.fit<-rbind(boot.fit, modelb$model.fit)
+			}
 		}
 	colnames(boot.fit)<-c('chisq', 'GFI','AGFI', 'RMSEA','NFI','NNFI','CFI','BIC','SRMR')	
 	list(par.boot=boot.est, par0=par0, boot.fit=boot.fit, fit0=fit0)
@@ -653,9 +673,11 @@ bmem.pair.boot<-function(x, ram, indirect, boot=1000, moment=FALSE, ...){
 	boot.fit<-NULL
 	for (i in 1:boot){
 		x.boot<-x[sample(n, n, replace=TRUE),]
-		modelb<-bmem.pair(x.boot, ram, indirect, moment,  ...)
-		boot.est<-rbind(boot.est, modelb$est)
-		boot.fit<-rbind(boot.fit, modelb$model.fit)
+		modelb<-try(bmem.pair(x.boot, ram, indirect, moment,  ...))
+		if (class(modelb)!="try-error"){
+			boot.est<-rbind(boot.est, modelb$est)
+			boot.fit<-rbind(boot.fit, modelb$model.fit)
+			}
 		}
 	colnames(boot.fit)<-c('chisq', 'GFI','AGFI', 'RMSEA','NFI','NNFI','CFI','BIC','SRMR')	
 	list(par.boot=boot.est, par0=par0, boot.fit=boot.fit, fit0=fit0)
@@ -670,9 +692,11 @@ bmem.mi.boot<-function(x, ram, indirect, v, m=10, boot=1000, moment=FALSE, ...){
 	boot.fit<-NULL
 	for (i in 1:boot){
 		x.boot<-x[sample(n, n, replace=TRUE),]
-		modelb<-bmem.mi(x.boot, ram, indirect, v, m, moment, ...)
-		boot.est<-rbind(boot.est, modelb$est)
-		boot.fit<-rbind(boot.fit, modelb$model.fit)
+		modelb<-try(bmem.mi(x.boot, ram, indirect, v, m, moment, ...))
+		if (class(modelb)!="try-error"){
+			boot.est<-rbind(boot.est, modelb$est)
+			boot.fit<-rbind(boot.fit, modelb$model.fit)
+			}
 		}
 	colnames(boot.fit)<-c('chisq', 'GFI','AGFI', 'RMSEA','NFI','NNFI','CFI','BIC','SRMR')		
 	list(par.boot=boot.est, par0=par0, boot.fit=boot.fit, fit0=fit0)
@@ -688,9 +712,11 @@ bmem.em.boot<-function(x, ram, indirect, v, robust=FALSE, varphi=.1, st='i', boo
 	boot.fit<-NULL
 	for (i in 1:boot){
 		x.boot<-x[sample(n, n, replace=TRUE),]
-		modelb<-bmem.em(x.boot, ram, indirect, v, robust, varphi, st, moment, max_it, ...)
-		boot.est<-rbind(boot.est, modelb$est)
-		boot.fit<-rbind(boot.fit, modelb$model.fit)
+		modelb<-try(bmem.em(x.boot, ram, indirect, v, robust, varphi, st, moment, max_it, ...))
+		if (class(modelb)!="try-error"){
+			boot.est<-rbind(boot.est, modelb$est)
+			boot.fit<-rbind(boot.fit, modelb$model.fit)
+			}
 		}
 	colnames(boot.fit)<-c('chisq', 'GFI','AGFI', 'RMSEA','NFI','NNFI','CFI','BIC','SRMR')	
 	list(par.boot=boot.est, par0=par0, boot.fit=boot.fit, fit0=fit0)
@@ -892,7 +918,7 @@ bmem<-function(x, ram, indirect, v, method='tsml', ci='bc', cl=.95, boot=1000, m
 	
 	cat('\nThe bootstrap confidence intervals for model fit indices\n')
 	rownames(ci.fit)<-c('chisq', 'GFI','AGFI', 'RMSEA','NFI','NNFI','CFI','BIC','SRMR')
-	print(ci.fit[1, ])
+	print(ci.fit)
 	cat('\nThe literature has suggested the use of Bollen-Stine bootstrap for model fit. To do so, use the function bmem.bs().\n')
 	if (ci=='bca') {
 		bmemobject<-list(ci=ci.est, ci.fit=ci.fit, boot.est=boot.est, jack.est=jack.est)
@@ -928,7 +954,7 @@ summary.bmem<-function(object, ci='bc', cl=.95, ...){
 	
 	cat('\nThe bootstrap confidence intervals for model fit indices\n')
 	rownames(ci.fit)<-c('chisq', 'GFI','AGFI', 'RMSEA','NFI','NNFI','CFI','BIC','SRMR')
-	print(ci.fit[1, ])
+	print(ci.fit)
 	allci<-list(ci.est=ci.est, ci.fit=ci.fit)
 	class(allci)<-'summary.bmem'
 	invisible(allci)
