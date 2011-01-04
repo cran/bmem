@@ -1,6 +1,6 @@
-f9e7e34f6dcf63069877d737d66d10fc *DESCRIPTION
+38afdfb65b3692ed3b14c2249d39c8df *DESCRIPTION
 f0441af280a4622a6481814f9bfc635c *NAMESPACE
-c17e90ce735d003a27beba317006ae3e *R/bmem.R
+7399c2fa7ac7eb81fcdf8427be83aaef *R/bmem.R
 775af17ecd7727abb5714ecfab612f6d *man/bmem-package.Rd
 21fe7896fd9b7e2a96851badb5bb11bd *man/bmem.Rd
 27bebfb78f0b6f990cc108be6a38e0e6 *man/bmem.bs.Rd
@@ -36,5 +36,5 @@ db1ca9922731e309949cfb1087d2a0ca *man/bmem.sobel.Rd
 8f18b6ffc6627cb42de15864f909eb26 *man/bmem.sobel.ind.Rd
 967c44121e1834f4dd03a4f32be65695 *man/bmem.ssq.Rd
 84f87837590b438982c9fb9b2dca0d58 *man/bmem.v.Rd
-a1c2867c7f8d45d295c5019c3dfe32ab *man/plot.bmem.Rd
-cdfb8b0429c795706ad3236fc055a5a2 *man/summary.bmem.Rd
+f23d92fec68dbc616cf2bae21df906e1 *man/plot.bmem.Rd
+7bc37eb8c35dd860dbaca784232c7214 *man/summary.bmem.Rd

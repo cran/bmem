@@ -1,4 +1,5 @@
 \name{plot.bmem}
+\alias{plot}
 \alias{plot.bmem}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
@@ -8,7 +9,7 @@ Plot of the bootstrap distribution
 Plot of the bootstrap distribution
 }
 \usage{
-plot.bmem(x, par, ...)
+\method{plot}{bmem}(x, par, ...)
 }
 \arguments{
   \item{x}{A bmem object}

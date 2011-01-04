@@ -124,21 +124,29 @@ bmem.sobel<-function(x, ram, indirect, moment=FALSE, ...){
 	}else{
 	    sem.object<-sem(ram, temp.cov, N, ...)
 	}
-	n<-length(indirect)
-	est.indirect<-NULL
-	for (i in 1:n){
-		temp<-indirect[i]
-		res<-bmem.sobel.ind(sem.object, temp)
-		est.indirect<-rbind(est.indirect, res)
+	if (!missing(indirect)){
+		n<-length(indirect)
+		est.indirect<-NULL
+		for (i in 1:n){
+			temp<-indirect[i]
+			res<-bmem.sobel.ind(sem.object, temp)
+			est.indirect<-rbind(est.indirect, res)
 		}
-	sem.est<-summary(sem.object)$coeff[,1:3]
-	colnames(sem.est)<-colnames(est.indirect)
-	##print(summary(sem.object))
+		sem.est<-summary(sem.object)$coeff[,1:3]
+		colnames(sem.est)<-colnames(est.indirect)
+	}else{
+		est.indirect<-NULL
+		sem.est<-summary(sem.object)$coeff[,1:3]
+	}
+		
+	#print(summary(sem.object))
 	all.res<-rbind(sem.est, est.indirect)
+	p.value<-2*(1-pnorm(abs(all.res[,3])))
+	all.res<-cbind(all.res, p.value)
 			
 	##cat('\n\nIndirect or mediation effects\n')
 	print(all.res)
-	invisible(list(indirect=all.res, sem.object=sem.object))
+	invisible(list(estimates=all.res, sem=sem.object))
 	}
 
 
