@@ -1,3 +1,4 @@
+##
 bmem.moments<-function(x, type=0){
 	#0: listwise deletion
 	#1: pairwise deletion
@@ -55,6 +56,8 @@ bmem.sem<-function(x, ram, N, indirect, moment=FALSE, ...){
 	    sem.res<-sem(ram, x, N, ...)
 		est<-sem.res$coeff
 	}
+	
+	if (!missing(indirect)){
 	n<-length(indirect)
 	est.indirect<-rep(0,n)
 	for (i in 1:n){
@@ -74,6 +77,9 @@ bmem.sem<-function(x, ram, N, indirect, moment=FALSE, ...){
 		est.indirect[i]<-eval(ind.exp, par.list)
 		}
 	names(est.indirect)<-indirect
+	}else{
+		est.indirect<-NULL
+	}
 	model.fit<-NA
 	model.summary<-summary(sem.res)
 	model.fit<-c(model.summary$chisq,model.summary$GFI, model.summary$AGFI, model.summary$RMSEA[1], model.summary$NFI, model.summary$NNFI, model.summary$CFI, model.summary$BIC, model.summary$SRMR)
@@ -875,15 +881,18 @@ bmem<-function(x, ram, indirect, v, method='tsml', ci='bc', cl=.95, boot=1000, m
 	cat('\nThe bootstrap confidence intervals for model fit indices\n')
 	rownames(ci.fit)<-c('chisq', 'GFI','AGFI', 'RMSEA','NFI','NNFI','CFI','BIC','SRMR')
 	print(ci.fit[1, ])
+	cat('\nThe literature has suggested the use of Bollen-Stine bootstrap for model fit. To do so, use the function bmem.bs().\n')
 	if (ci=='bca') {
-		invisible(list(ci=ci.est, ci.fit=ci.fit, boot.est=boot.est, jack.est=jack.est))
+		bmemobject<-list(ci=ci.est, ci.fit=ci.fit, boot.est=boot.est, jack.est=jack.est)
 	}else{
-		invisible(list(ci=ci.est, ci.fit=ci.fit, boot.est=boot.est))
+		bmemobject<-list(ci=ci.est, ci.fit=ci.fit, boot.est=boot.est)
 	}
+	class(bmemobject)<-'bmem'
+	invisible(bmemobject)
 }
 
-bmem.ci<-function(x, ci='bc', cl=.95){
-	boot.est<-x$boot.est
+summary.bmem<-function(object, ci='bc', cl=.95, ...){
+	boot.est<-object$boot.est
 		if (ci=='norm'){
 			ci.est<-bmem.ci.norm(boot.est$par.boot, boot.est$par0, cl)
 			ci.fit<-bmem.ci.norm(boot.est$boot.fit, boot.est$fit0, cl)
@@ -897,7 +906,7 @@ bmem.ci<-function(x, ci='bc', cl=.95){
 			ci.fit<-bmem.ci.bc(boot.est$boot.fit, boot.est$fit0, cl)
 		}
 		if (ci=='bca'){
-			jack.est<-x$jack.est
+			jack.est<-object$jack.est
 			ci.est<-bmem.ci.bca(boot.est$par.boot, boot.est$par0, jack.est$jack.est, cl)
 			ci.fit<-bmem.ci.bca(boot.est$boot.fit, boot.est$fit0, jack.est$jack.fit, cl)
 		}
@@ -906,9 +915,11 @@ bmem.ci<-function(x, ci='bc', cl=.95){
 	print(ci.est)
 	
 	cat('\nThe bootstrap confidence intervals for model fit indices\n')
-	ci.fit<-ci.fit[c(1:7, 11:15),]
-	rownames(ci.fit)<-c('chisq', 'df', 'chisqNull', 'dfNull', 'GFI','AGFI', 'RMSEA','NFI','NNFI','CFI','BIC','SRMR')
+	rownames(ci.fit)<-c('chisq', 'GFI','AGFI', 'RMSEA','NFI','NNFI','CFI','BIC','SRMR')
 	print(ci.fit[1, ])
+	allci<-list(ci.est=ci.est, ci.fit=ci.fit)
+	class(allci)<-'summary.bmem'
+	invisible(allci)
 }
 
 bmem.raw2cov<-function(x){
@@ -993,14 +1004,33 @@ bmem.bs<-function(x, ram, indirect, v, ci='bc', cl=.95, boot=1000, max_it=500, .
 	cat('\nThe bootstrap confidence intervals for model fit indices\n')
 	rownames(ci.fit)<-rownames(ci.fit)<-c('chisq', 'GFI','AGFI', 'RMSEA','NFI','NNFI','CFI','BIC','SRMR')
 	print(ci.fit)
+	cat('\nThe literature has suggested the use of raw data bootstrap for standard errors. To do so, use the function bmem().\n')
+
 	if (ci=='bca') {
-		invisible(list(ci=ci.est, ci.fit=ci.fit, boot.est=boot.est, jack.est=jack.est))
+		bmemobject<-list(ci=ci.est, ci.fit=ci.fit, boot.est=boot.est, jack.est=jack.est)
 	}else{
-		invisible(list(ci=ci.est, ci.fit=ci.fit, boot.est=boot.est))
+		bmemobject<-list(ci=ci.est, ci.fit=ci.fit, boot.est=boot.est)
 	}
+	class(bmemobject)<-'bmem'
+	invisible(bmemobject)
 }
 
-bmem.plot<-function(x, par){
+bmem.plot<-function(x, par,...){
+	## x: output from bmem function
+	## par: a parameter or a fit indice to use
+	parnames<-colnames(x$boot.est$par.boot)
+	fitnames<-colnames(x$boot.est$boot.fit)
+	
+	if (par %in% parnames){
+		hist(x$boot.est$par.boot[,par], xlab=par, ylab='Density', prob=TRUE, main='')
+		lines(density(x$boot.est$par.boot[,par]))
+	}else{
+		hist(x$boot.est$boot.fit[,par], xlab=par, ylab='Density', prob=TRUE,main='')
+		lines(density(x$boot.est$boot.fit[,par]))
+	}	
+}
+
+plot.bmem<-function(x, par, ...){
 	## x: output from bmem function
 	## par: a parameter or a fit indice to use
 	parnames<-colnames(x$boot.est$par.boot)

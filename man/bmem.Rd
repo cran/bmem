@@ -4,7 +4,9 @@
 \title{Mediation analysis based on bootstrap}
 \description{Mediation analysis based on bootstrap}
 \usage{
-bmem(x, ram, indirect, v, method='tsml', ci='bc', cl=.95, boot=1000, m=10, varphi=.1, st='i', robust=FALSE, max_it=500, moment=FALSE, ...)
+bmem(x, ram, indirect, v, method='tsml', ci='bc', cl=.95, 
+     boot=1000, m=10, varphi=.1, st='i', robust=FALSE, 
+     max_it=500, moment=FALSE, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{

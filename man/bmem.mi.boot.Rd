@@ -8,7 +8,8 @@ Bootstrap for multiple imputation
 Bootstrap for multiple imputation
 }
 \usage{
-bmem.mi.boot(x, ram, indirect, v, m = 10, boot = 1000, moment = FALSE, ...)
+bmem.mi.boot(x, ram, indirect, v, m = 10, boot = 1000, 
+             moment = FALSE, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{

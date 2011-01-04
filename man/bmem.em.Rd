@@ -8,7 +8,9 @@ Estimate a mediation model based on EM covariance matrix
 Estimate a mediation model based on EM covariance matrix
 }
 \usage{
-bmem.em(x, ram, indirect, v, robust = FALSE, varphi = 0.1, st= "i", moment = FALSE, max_it = 500, ...)
+bmem.em(x, ram, indirect, v, robust = FALSE, 
+        varphi = 0.1, st= "i", moment = FALSE, 
+        max_it = 500, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{

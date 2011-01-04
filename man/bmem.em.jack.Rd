@@ -8,7 +8,9 @@ Jackknife estimate using EM
 Jackknife estimate using EM
 }
 \usage{
-bmem.em.jack(x, ram, indirect, v, robust = FALSE, varphi = 0.1, st= "i", moment = FALSE, max_it = 500, ...)
+bmem.em.jack(x, ram, indirect, v, robust = FALSE, 
+             varphi = 0.1, st= "i", moment = FALSE, 
+             max_it = 500, ...)
 
 }
 %- maybe also 'usage' for other objects documented here.

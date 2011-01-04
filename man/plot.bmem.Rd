@@ -1,20 +1,23 @@
-\name{bmem.raw2cov}
-\alias{bmem.raw2cov}
+\name{plot.bmem}
+\alias{plot.bmem}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Convert a raw moment matrix to covariance matrix
+Plot of the bootstrap distribution
 }
 \description{
-Convert a raw moment matrix to covariance matrix
+Plot of the bootstrap distribution
 }
 \usage{
-bmem.raw2cov(x)
+plot.bmem(x, par, ...)
 }
 \arguments{
-  \item{x}{A moment matrix}
+  \item{x}{A bmem object}
+  \item{par}{Name of parameter to be plotted.}
+  \item{...}{Options used for the generic plot function.}
 }
 
-\value{A covariance matrix}
+\value{
+Generate the bootstrap histogram for a chosen parameter.}
 \author{
 Zhiyong Zhang and Lijuan Wang
 }

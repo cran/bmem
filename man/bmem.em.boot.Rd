@@ -8,7 +8,9 @@ Bootstrap for EM
 Bootstrap for EM
 }
 \usage{
-bmem.em.boot(x, ram, indirect, v, robust = FALSE, varphi = 0.1, st= "i", boot = 1000, moment = FALSE, max_it = 500, ...)
+bmem.em.boot(x, ram, indirect, v, robust = FALSE, 
+             varphi = 0.1, st= "i", boot = 1000, 
+             moment = FALSE, max_it = 500, ...)
 
 }
 %- maybe also 'usage' for other objects documented here.

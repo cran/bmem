@@ -8,7 +8,8 @@ Bootstrap but using the Bollen-Stine method
 The same as \code{\link{bmem}} but using the Bollen-Stine method
 }
 \usage{
-bmem.bs(x, ram, indirect, v, ci='bc', cl=.95, boot=1000, max_it=500, ...)
+bmem.bs(x, ram, indirect, v, ci='bc', cl=.95, 
+        boot=1000, max_it=500, ...)
 }
 \arguments{
   \item{x}{A data set}
