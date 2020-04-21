@@ -1,7 +1,7 @@
-9e4c9a741e4c688865b5ef9bb618d0ad *DESCRIPTION
-177aad022c2627b37f5c82657cbaefd3 *NAMESPACE
+cbb75e88822ace70979d49f989572463 *DESCRIPTION
+7a73875c7b145470b37e23fc0be1d855 *NAMESPACE
 2aeebeef2ec7797ef82315bb904dad5a *R/bmem.R
-112ec62475898bdef113318a8ab3696d *R/power.R
+48f3a0bc0388c7471cdd60861e8380ae *R/power.R
 2c8a9f4bb11d8e7869dd3f758459619a *inst/doc/MediationAnalysis.pdf
 026ad47a7096a134c939d47d7b56963e *inst/doc/PowerAnalysis.pdf
 59ffee3cf4045bf0e110d06a8af7f776 *man/bmem-package.Rd
