@@ -77,7 +77,6 @@ Other named arguments for lavaan can be passed here.
 }
 
 \examples{
-\dontrun{
 ex1model<-'
 math ~ c*ME+start(0)*ME + b*HE+start(0.39)*HE
 HE ~ a*ME+start(0.39)*ME
@@ -87,11 +86,12 @@ indirect<-'ab:=a*b'
 
 N<-50
 
+## change nrep to at least 1000 in real analysis
+
 system.time(non.normal<-power.basic(ex1model, indirect, N, 
- nrep=2000,parallel='multicore', skewness=c(-.3, -.7, 1.3), 
- kurtosis=c(1.5, 0, 5), ovnames=c('ME', 'HE', 'math'), ncore=8))
+ nrep=30, skewness=c(-.3, -.7, 1.3), 
+ kurtosis=c(1.5, 0, 5), ovnames=c('ME', 'HE', 'math')))
  
 summary(non.normal)
 
-}
 }

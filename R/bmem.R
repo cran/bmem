@@ -587,7 +587,7 @@ bmem.list.jack<-function(x, ram, indirect, moment=FALSE, ...){
 	for (i in 1:n){
 		x.jack<-x[nseq[-i],]
 		jack.temp<-try(bmem.list(x.jack, ram, indirect, moment, ...))
-		if (class(jack.temp)!="try-error"){
+		if (!inherits(jack.temp, "try-error")){
 			jack.est<-rbind(jack.est, jack.temp$est)
 			jack.fit<-rbind(jack.fit, jack.temp$model.fit)
 			}
@@ -603,7 +603,7 @@ bmem.pair.jack<-function(x, ram, indirect, moment=FALSE, ...){
 	for (i in 1:n){
 		x.jack<-x[nseq[-i],]
 		jack.temp<-try(bmem.pair(x.jack, ram, indirect, moment, ...))
-		if (class(jack.temp)!="try-error"){
+		if (!inherits(jack.temp, "try-error")){
 			jack.est<-rbind(jack.est, jack.temp$est)
 			jack.fit<-rbind(jack.fit, jack.temp$model.fit)
 			}
@@ -620,7 +620,7 @@ bmem.mi.jack<-function(x, ram, indirect, v, m=10, moment=FALSE, ...){
 	for (i in 1:n){
 		x.jack<-x[nseq[-i],]
 		jack.temp<-try(bmem.mi(x.jack, ram, indirect, v, m, moment, ...))
-		if (class(jack.temp)!="try-error"){
+		if (!inherits(jack.temp, "try-error")){
 			jack.est<-rbind(jack.est, jack.temp$est)
 			jack.fit<-rbind(jack.fit, jack.temp$model.fit)
 			}
@@ -637,7 +637,7 @@ bmem.em.jack<-function(x, ram, indirect, v, robust=FALSE, varphi=.1, st='i', mom
 	for (i in 1:n){
 		x.jack<-x[nseq[-i],]
 		jack.temp<-try(bmem.em(x.jack, ram, indirect, v, robust, varphi, st, moment, max_it, ...))
-		if (class(jack.temp)!="try-error"){
+		if (!inherits(jack.temp, "try-error")){
 			jack.est<-rbind(jack.est, jack.temp$est)
 			jack.fit<-rbind(jack.fit, jack.temp$model.fit)
 			}
@@ -655,7 +655,7 @@ bmem.list.boot<-function(x, ram, indirect, boot=1000, moment=FALSE, ...){
 	for (i in 1:boot){
 		x.boot<-x[sample(n,n, replace=TRUE),]
 		modelb<-try(bmem.list(x.boot, ram, indirect, moment, ...))
-		if (class(modelb)!="try-error"){
+		if (!inherits(modelb, "try-error")){
 			boot.est<-rbind(boot.est, modelb$est)
 			boot.fit<-rbind(boot.fit, modelb$model.fit)
 			}
@@ -674,7 +674,7 @@ bmem.pair.boot<-function(x, ram, indirect, boot=1000, moment=FALSE, ...){
 	for (i in 1:boot){
 		x.boot<-x[sample(n, n, replace=TRUE),]
 		modelb<-try(bmem.pair(x.boot, ram, indirect, moment,  ...))
-		if (class(modelb)!="try-error"){
+		if (!inherits(modelb, "try-error")){
 			boot.est<-rbind(boot.est, modelb$est)
 			boot.fit<-rbind(boot.fit, modelb$model.fit)
 			}
@@ -693,7 +693,7 @@ bmem.mi.boot<-function(x, ram, indirect, v, m=10, boot=1000, moment=FALSE, ...){
 	for (i in 1:boot){
 		x.boot<-x[sample(n, n, replace=TRUE),]
 		modelb<-try(bmem.mi(x.boot, ram, indirect, v, m, moment, ...))
-		if (class(modelb)!="try-error"){
+		if (!inherits(modelb, "try-error")){
 			boot.est<-rbind(boot.est, modelb$est)
 			boot.fit<-rbind(boot.fit, modelb$model.fit)
 			}
@@ -713,7 +713,7 @@ bmem.em.boot<-function(x, ram, indirect, v, robust=FALSE, varphi=.1, st='i', boo
 	for (i in 1:boot){
 		x.boot<-x[sample(n, n, replace=TRUE),]
 		modelb<-try(bmem.em(x.boot, ram, indirect, v, robust, varphi, st, moment, max_it, ...))
-		if (class(modelb)!="try-error"){
+		if (!inherits(modelb, "try-error")){
 			boot.est<-rbind(boot.est, modelb$est)
 			boot.fit<-rbind(boot.fit, modelb$model.fit)
 			}

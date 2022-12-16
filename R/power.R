@@ -325,20 +325,20 @@ power.basic<-function(model, indirect=NULL, nobs=100, nrep=1000, alpha=.95, skew
 	error <- 0
 	while (error == 0){
 		newdata<-try(simulateData(model,sample.nobs=nobs,skewness=0,kurtosis=0, ...))
-		if (class(newdata)!= "try-error") error <- 1
+		if (!inherits(newdata,  "try-error")) error <- 1
 	}
 
 	if (ngroups > 1){
 		error <- 0
 		while (error == 0){
 			temp.res<-try(lavaan::cfa(model.indirect, data=newdata, se=se, estimator=estimator, group='group', ...))
-			if (class(temp.res)!= "try-error") error <- 1
+			if (!inherits(temp.res,  "try-error")) error <- 1
 		}
 	}else{
 		error <- 0
 		while (error == 0){
 			temp.res<-try(lavaan::cfa(model.indirect, data=newdata, se=se, estimator=estimator, ...))
-			if (class(temp.res)!= "try-error") error <- 1
+			if (!inherits(temp.res,  "try-error")) error <- 1
 		}
 	}
 	par.value<-popPar(temp.res)
@@ -367,19 +367,19 @@ power.basic<-function(model, indirect=NULL, nobs=100, nrep=1000, alpha=.95, skew
 		error <- 0
 		while (error == 0){
 			newdata<-try(simulateData(model,sample.nobs=nobs,skewness=skewness,kurtosis=kurtosis, ...)	)
-			if (class(newdata)!= "try-error") error <- 1
+			if (!inherits(newdata,  "try-error")) error <- 1
 		}
 	
 		## Step 2: fit the model 		
 		if (ngroups > 1){
-			temp.res<-try(lavaan::cfa(model.indirect, data=newdata, se=se, estimator=estimator, group='group', warn=FALSE, ...))
+			temp.res<-try(lavaan::cfa(model.indirect, data=newdata, se=se, estimator=estimator, group='group',  ...))
 		}else{
-			temp.res<-try(lavaan::cfa(model.indirect, data=newdata, se=se, estimator=estimator, warn=FALSE, ...))
+			temp.res<-try(lavaan::cfa(model.indirect, data=newdata, se=se, estimator=estimator,  ...))
 		}
 		
 		## Step 3: Check significance
 		
-		if (class(temp.res)!="try-error"){
+		if (!inherits(temp.res,  "try-error")){
             temp.res.lavpartable <- parTable(temp.res)
 			idx <- 1:length( temp.res.lavpartable$lhs )
 			temp.est<-temp.res.lavpartable$est[idx]
@@ -448,20 +448,20 @@ power.boot<-function(model, indirect=NULL, nobs=100, nrep=1000, nboot=1000, alph
 	error <- 0
 	while (error == 0){
 		newdata<-try(simulateData(model,sample.nobs=nobs,skewness=0,kurtosis=0, ...))
-		if (class(newdata)!= "try-error") error <- 1
+		if (!inherits(newdata,  "try-error")) error <- 1
 	}
 
 	if (ngroups > 1){
 		error <- 0
 		while (error == 0){
 			temp.res<-try(lavaan::cfa(model.indirect, data=newdata, se=se, estimator=estimator, group='group', ...))
-			if (class(temp.res)!= "try-error") error <- 1
+			if (!inherits(temp.res,  "try-error")) error <- 1
 		}
 	}else{
 		error <- 0
 		while (error == 0){
 			temp.res<-try(lavaan::cfa(model.indirect, data=newdata, se=se, estimator=estimator, ...))
-			if (class(temp.res)!= "try-error") error <- 1
+			if (!inherits(temp.res,  "try-error")) error <- 1
 		}
 	}
     temp.res.lavpartable <- parTable(temp.res)
@@ -528,25 +528,25 @@ power.boot<-function(model, indirect=NULL, nobs=100, nrep=1000, nboot=1000, alph
 		error <- 0
 		while (error == 0){
 			newdata<-try(simulateData(model,sample.nobs=nobs,skewness=skewness,kurtosis=kurtosis, ...)	)
-			if (class(newdata)!= "try-error") error <- 1
+			if (!inherits(newdata,  "try-error")) error <- 1
 		}
 		
 		## Step 2: fit the model 		
 		#temp.res<-sem(model.indirect, data=newdata, se=se, estimator=estimator, ...)
 		if (ngroups > 1){
-			temp.res<-try(lavaan::cfa(model.indirect, data=newdata, se=se, estimator=estimator, group='group', warn=FALSE, ...))
+			temp.res<-try(lavaan::cfa(model.indirect, data=newdata, se=se, estimator=estimator, group='group',  ...))
 		}else{
-			temp.res<-try(lavaan::cfa(model.indirect, data=newdata, se=se, estimator=estimator, warn=FALSE, ...))
+			temp.res<-try(lavaan::cfa(model.indirect, data=newdata, se=se, estimator=estimator,  ...))
 		}
 		
 		
 		## Step 3: Conduct bootstrap analysis
-		if (class(temp.res)!="try-error"){
+		if (!inherits(temp.res,  "try-error")){
 			orig.res<-coef.new(temp.res)
 			if (boot.type=="default"){
-				boot.res<-bootstrapLavaan(temp.res, FUN=coef.new, R=nboot, parallel="no", warn=FALSE, ...)
+				boot.res<-bootstrapLavaan(temp.res, FUN=coef.new, R=nboot, parallel="no",  ...)
 			}else{
-				boot.res<-bootstrapLavaan(temp.res, FUN=coef.new, R=nboot, type='bollen.stine', parallel="no", warn=FALSE, ...)
+				boot.res<-bootstrapLavaan(temp.res, FUN=coef.new, R=nboot, type='bollen.stine', parallel="no",  ...)
 			}
 			if (ci=='default'){
 				ci.res<-ci.perc(boot.res, orig.res, cl=alpha)
@@ -562,7 +562,7 @@ power.boot<-function(model, indirect=NULL, nobs=100, nrep=1000, nboot=1000, alph
 			temp.est<-coef.new(temp.res) 
 			temp.se<-ci.res[,2]
 			for (jj in 1:length(ptype)){
-				if (ptype){
+				if (ptype[jj]){
 					crit<-qnorm(1-(1-alpha)/2)
 					ci.temp<-ci.res[jj, 1] + c(-1,1)*ci.res[jj, 2]*crit
 					temp.sig<-c(temp.sig, (ci.temp[1]>0 | ci.temp[2]<0))
@@ -647,7 +647,8 @@ power.curve<-function(model, indirect=NULL, nobs=100, type='basic', nrep=1000, n
 		op <- par(ask=TRUE)
 		on.exit(par(op))
 	}
-	pnames <- colnames(allpower)
+	partable <- parTable(indpower$out)
+	pnames <- paste0(partable$lhs, partable$op,  partable$rhs, " ", partable$label)
 	for (j in 1:ncol(allpower)){
 		if (sum(is.nan(allpower[,j])) == 0){
 			if (is.vector(nobs)){

@@ -84,7 +84,7 @@ Other named arguments for lavaan can be passed here.
 }
 
 \examples{
-\dontrun{
+\donttest{
 ex2model<-'
  ept ~ start(.4)*hvltt + b*hvltt + start(0)*age + start(0)*edu + start(2)*R
  hvltt ~ start(-.35)*age + a*age + c*edu + start(.5)*edu
@@ -103,10 +103,12 @@ ex2model<-'
 
 indirect<-'ind1 := a*b + c*b'
 
-nobs <- seq(100, 2000, by=200)
+nobs <- seq(100, 200, by=100)
 
+## change nrep and nboot to at least 1000 in real analysis
 power.curve(model=ex2model, indirect=indirect, nobs=nobs, 
-type='boot', parallel='multicore', ncore=60, ci='percent', 
-boot.type='simple', interactive=F)
+type='boot', nrep=30, nboot=30, ci='percent', 
+boot.type='simple', interactive=FALSE)
+
 }
 }
